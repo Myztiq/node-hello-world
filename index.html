@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="/primus/primus.js"></script>
+    <meta charset="UTF-8">
+    <title></title>
+    <script>
+        var primus = Primus.connect();
+        var streamCount = {};
+        for(var i=0; i< 50; i++){
+            streamCount[i] = -1;
+            listenToSubstream(i);
+        }
+        var finishedCount = 0;
+
+        var globalCounter = 0;
+
+        function listenToSubstream(streamId){
+            var foo = primus.substream(streamId);
+            foo.on('data', function (data) {
+                if(data.length !== data.contents.length) {
+                    alert('Mismatch size!')
+                }
+                if(data.count > streamCount[streamId]){
+                    streamCount[streamId] = data.count;
+                } else {
+                    alert('OUT OF ORDER!');
+                }
+                if(streamCount[streamId] === 10000){
+                    finishedCount++;
+                    console.log('Finished', finishedCount);
+                }
+                if (globalCounter % 1000 === 0) {
+                    console.log(streamCount);
+                }
+                globalCounter++;
+            })
+        }
+    </script>
+</head>
+<body>
+    <h1>Hello World</h1>
+</body>
+</html>

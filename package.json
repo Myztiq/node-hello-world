@@ -1,7 +1,7 @@
 {
   "name": "node-hello-world",
   "version": "1.0.0",
-  "private": true, 
+  "private": true,
   "description": "node hello world",
   "main": "server.js",
   "scripts": {
@@ -19,7 +19,11 @@
   },
   "homepage": "https://github.com/tjmehta/node-hello-world",
   "dependencies": {
+    "engine.io": "^1.5.2",
+    "engine.io-client": "^1.5.2",
+    "primus": "^3.2.1",
+    "substream": "^0.2.0",
+    "ws": "^0.7.2"
   },
-  "devDependencies": {
-  }
+  "devDependencies": {}
 }
